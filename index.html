@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Weather App</title>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&family=Noto+Sans:wght@400;700&display=swap');
+
+        *{
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* .container{
+            background-image: url("지역/수원_111.png");
+            background-size : 375px 812px;
+            background-repeat: no-repeat;
+            background-position: center top;
+        } */
+
+        .container{
+            width: 375px;
+            height: 812px;
+
+            position: relative;
+            overflow: hidden;
+
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+
+        .background{
+            text-align: center;
+            position: absolute;
+        }
+
+
+        #city{
+            position: absolute;
+            left: 50%;
+            top: 66px;
+            transform: translate( -50%, -50% );
+
+            font-size: 28px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        #temp{
+            position: absolute;
+            top: 132px;
+            left: 50%;
+            transform: translate( -50%, -50% );
+
+            font-size: 60px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        #temp_minmax{
+            position: absolute;
+            top: 184px;
+            left: 50%;
+            transform: translate( -50%, -50% );
+
+            font-size: 16px;
+            opacity: 80%;
+            color: #fff;
+        }
+
+        #weather{
+            position: absolute;
+            top: 228px;
+            left: 50%;
+            transform: translate( -50%, -50% );
+
+            font-size: 24px;
+            color: #fff;
+        }
+
+        #icon .cloud1, .cloud2, .cloud3{
+            position: absolute;
+            top: 244px;
+            left: -40px;
+
+            animation: cloud 10s linear infinite;
+        }
+
+        @keyframes cloud {  
+            50% {
+                transform: translateX(10px);
+            }
+            100% {
+                transform: translateX(0px);
+            }
+        }
+
+        #icon .rain{
+            position: absolute;
+            top: 204px;
+
+            animation: rain 1s linear infinite;
+        }
+
+        @keyframes rain {  
+            /* 30% {
+                transform: translateY(50px);
+            } */
+            100% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+        }
+
+        #icon .snow1{
+            position: absolute;
+            top: 236px;
+            left: 0px;
+
+            animation: snow 3s linear infinite;
+        }
+
+
+        #icon .snow2{
+            position: absolute;
+            top: 236px;
+            left: 0px;
+
+            animation: snow2 3s linear infinite;
+            animation-delay: .2s;
+        }
+
+
+        #icon .snow3{
+            position: absolute;
+            top: 236px;
+            left: 0px;
+
+            animation: snow3 3s linear infinite;
+            animation-delay: .4s;
+        }
+
+        #icon .snow4{
+            position: absolute;
+            top: 236px;
+            left: 0px;
+
+            animation: snow4 3s linear infinite;
+            animation-delay: .6s;
+        }
+
+
+        @keyframes snow {  
+            100% {
+                transform: translateY(12px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes snow2 {  
+            100% {
+                transform: translateY(12px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes snow3 {  
+            100% {
+                transform: translateY(12px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes snow4 {  
+            100% {
+                transform: translateY(12px);
+                opacity: 0;
+            }
+        }
+
+        .today{
+            position: absolute;
+            top: 560px;
+            left: 18px;
+            color: #404040;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        #forecast{
+            position: absolute;
+            top: 608px;
+            width: 375px;
+        }
+
+        .forecast{
+            display: inline-block;
+
+            /* position: absolute; */
+            /* top: 600px; */
+            margin-right: 10px;
+
+            background-color: rgba(255,255,255, 0.5);
+            border: 3.5px solid #fff;
+            width: 54px;
+            height: 116px;
+            border-radius: 30px;
+            margin-right: 10px;
+            text-align: center;
+
+            box-shadow: 0px 2px 4px 0px #F0F0F0;
+        }
+
+        .forecast:nth-child(1){
+            margin-left: 15px;
+        }
+
+        .forecast:hover{
+            transition: up 0.3s ease-in-out;
+            transform: translateY(-16px);
+            background-color: #fff;
+        }
+
+        .date{
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .icon{
+            width: 36px;
+            height: 36px;
+            margin-top: 6px;
+        }
+
+        .temp{
+            font-size: 16px;
+            font-weight: 500;
+            /* margin-top: -8px; */
+        }
+
+        .to_go{
+            position: absolute;
+            bottom: -990px; 
+            left: 50%;
+            transform: translate( -50%, -50% );
+
+            background-color: #fff;
+            width: 375px;
+            height: 700px;
+            border-top-left-radius: 27px;
+            border-top-right-radius: 27px;
+            box-shadow: 0px -2px 4px 0px #F0F0F0;
+        }
+
+        .to_go p{
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+            
+            justify-content:center;
+            align-items: center;
+        }
+
+        .to_go .item{
+            background-color: #fff;
+            box-shadow: 0px 0px 8px 0px #F6F6F6;
+            width: 328px;
+            height: 108px;
+            border-radius: 12px; 
+
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translate( -50%, -50% );
+
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .to_go .item2{
+            background-color: #fff;
+            box-shadow: 0px 0px 8px 0px #F6F6F6;
+            width: 328px;
+            height: 108px;
+            border-radius: 12px; 
+
+            position: absolute;
+            top: 244px;
+            left: 50%;
+            transform: translate( -50%, -50% );
+        }
+
+        .to_go .item3{
+            background-color: #fff;
+            box-shadow: 0px 0px 8px 0px #F6F6F6;
+            width: 328px;
+            height: 108px;
+            border-radius: 12px; 
+
+            position: absolute;
+            top: 368px;
+            left: 50%;
+            transform: translate( -50%, -50% );
+        }
+
+        .to_go .item4{
+            background-color: #fff;
+            box-shadow: 0px 0px 8px 0px #F6F6F6;
+            width: 328px;
+            height: 108px;
+            border-radius: 12px; 
+
+            position: absolute;
+            top: 492px;
+            left: 50%;
+            transform: translate( -50%, -50% );
+        }
+
+        .to_go .item5{
+            background-color: #fff;
+            box-shadow: 0px 0px 8px 0px #F6F6F6;
+            width: 328px;
+            height: 108px;
+            border-radius: 12px; 
+
+            position: absolute;
+            top: 616px;
+            left: 50%;
+            transform: translate( -50%, -50% );
+        }
+
+        .photo{
+            position: absolute;
+            top: 12px;
+            left: 8px;
+        }
+
+        .photo img{
+            border-radius: 8px;
+        }
+
+        .text{
+            position: absolute;
+            top: 12px;
+            left: 120px;
+        }
+
+        .text h1{
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .text h2{
+            font-size: 12px;
+            font-weight: 500;
+            color: #404040;
+            margin-top: 4px;
+        }
+
+        .text p{
+            font-size: 11px;
+            font-weight: 300;
+            margin-top: 14px;
+            color: #9F9F9F;
+            letter-spacing: 1px;
+        }
+
+        </style>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="background">
+                <img src="지역/수원_111.png" alt="" width="375px">
+            </div>
+
+            <!-- <img id="icon" /> -->
+            <span class="material-icons md-24">place</span>
+            <a href="index.html">
+                <div id="city"></div>
+            </a>
+            <div id="temp"></div>
+            <div id="temp_minmax"></div>
+            <div id="weather"></div>
+
+            <div id="icon">
+                <img class="cloud1" src="날씨/cloud_01.png" alt="">
+                <img class="cloud2" src="날씨/cloud_02.png" alt="">
+                <img class="cloud3" src="날씨/cloud_03.png" alt="">
+                <img class="rain" src="날씨/rain_0.png" alt="">
+                <img class="snow1" src="날씨/snow_01.png" alt="">
+                <img class="snow2" src="날씨/snow_02.png" alt="">
+                <img class="snow3" src="날씨/snow_03.png" alt="">
+                <img class="snow3" src="날씨/snow_04.png" alt="">
+                
+            </div>
+
+            <div class="today"> <p>Today</p> </div>
+            <div id="forecast"></div>
+e
+            <div class="to_go">
+                <p> Where to go</p>
+
+                    <div class="item">
+                        <div class="photo">
+                            <img src="장소/파스타.png" alt="" width="80px" height="80px">
+                        </div>
+                        <div class="text">
+                            <h1>그로또</h1>
+                            <h2>경기 수원시 영통구 청명북로 2 1층</h2>
+                            <p>#수원맛집 #영통맛집 #수원와인바</p>
+                        </div>
+                    </div>
+
+                    <div class="item2">
+                        <div class="photo">
+                            <img src="장소/피자.png" alt="" width="80px" height="80px">
+                        </div>
+                        <div class="text">
+                            <h1>존앤진피자펍</h1>
+                            <h2>경기 수원시 팔달구 정조로905번길 27</h2>
+                            <p>#수원맛집 #행궁동맛집 #피자맛집 &nbsp;&nbsp;</p>
+                        </div>
+                    </div>
+
+                    <div class="item3">
+                        <div class="photo">
+                            <img src="장소/햄버거.png" alt="" width="80px" height="88px">
+                        </div>
+                        <div class="text">
+                            <h1>버거스테이지</h1>
+                            <h2>경기 수원시 팔달구 신풍로23번길 63-2</h2>
+                            <p>#수원맛집 #행궁동맛집 #햄버거맛집&nbsp;</p>
+                        </div>
+                    </div>
+
+                    <div class="item4">
+                        <div class="photo">
+                            <img src="장소/칵테일.png" alt="" width="80px" height="80px">
+                        </div>
+                        <div class="text">
+                            <h1>비원</h1>
+                            <h2>경기 수원시 팔달구 신풍로63번길 3-1</h2>
+                            <p>#수원맛집 #행궁동맛집 #버킷칵테일</p>
+                        </div>
+                    </div>
+
+                    <div class="item5">
+                        <div class="photo">
+                            <img src="장소/아이스크림.png" alt="" width="88px" height="88px">
+                        </div>
+                        <div class="text">
+                            <h1>아이스걸크림보이</h1>
+                            <h2>경기 수원시 영통구 센트럴타운로 107 </h2>
+                            <p>#수원맛집 #광교맛집 #젤라또맛집 &nbsp; </p>
+                        </div>
+                    </div>
+
+            </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        <script>
+            $(function(){
+
+                $.getJSON('https://api.openweathermap.org/data/2.5/weather?id=1835553&appid=61b44f07a584ae777acb0c1a2c45cb25&units=metric', function(data){
+                    // data로 실행할 일
+                    console.log(data);
+
+                    // city
+                    let city = data.name;
+                    //temp
+                    let temp = data.main.temp;
+                    temp = Math.round(temp);
+
+                    let temp_max = data.main.temp_max;
+                    temp_max = Math.round(temp_max);
+
+                    let temp_min = data.main.temp_min;
+                    temp_min = Math.round(temp_min);
+                    
+                    // weather
+                    let weather = data.weather[0].main;
+     
+                    $('#city').text(city);
+                    $('#weather').text(weather);
+                    $('#temp').text(temp+ "℃");
+                    $('#temp_minmax').text(temp_max + "℃" + " " + "/" + " " + temp_min + "℃");
+
+                    let iconCode = data.weather[0].icon;
+                    $('#icon').attr('src', 'http://openweathermap.org/img/wn/' + iconCode + '@2x.png');
+
+
+                    // background
+                    let today = moment();
+                    let hour = parseInt( today.format('H') );
+                    console.log(hour)
+
+                    // if(hour >= 7 && hour <= 16){
+                    //     if(iconCode == '02d' || iconCode == '02n' || iconCode == '03d' || iconCode == '03n' || iconCode == '04d' || iconCode == '04n'){
+                    //         // 흐린날 낮
+                    //         $('.background img').attr('src', "지역/수원_444.png");
+                    //     }else{
+                    //         $('.background img').attr('src', "지역/수원_111.png");
+                    //     }  
+                    // }
+                    // else{
+                    //     if(iconCode == '02d' || iconCode == '02n' || iconCode == '03d' || iconCode == '03n' || iconCode == '04d' || iconCode == '04n'){
+                    //         // 흐린날 밤
+                    //         $('.background img').attr('src', "지역/수원_444.png");
+                    //     }else{
+                    //         $('.background img').attr('src', "지역/수원_222.png");
+                    //     }
+                    // }
+
+
+                    if(hour >= 7 && hour <= 16){
+                        if(iconCode == '01d' || iconCode == '01n'){
+                            // 맑은날 낮
+                            $('.background img').attr('src', "지역/수원_111.png");
+                            $('#icon .snow1, .snow2, .snow3, .snow4').hide();
+                            $('#icon .cloud1, .cloud2, .cloud3').hide();
+                            $('#icon .rain').hide();
+
+                        }else if(iconCode == '09d' || iconCode == '09n' || iconCode == '10d' || iconCode == '10n'){
+                            $('.background img').attr('src', "지역/수원_444.png");
+                            $('#icon .cloud1, .cloud2, .cloud3').hide();
+                            $('#icon .snow1, .snow2, .snow3, .snow4').hide();
+                            $('#icon img').css('opacity', "70%");
+                        
+                        }else if(iconCode == '13d' || iconCode == '13n'){
+                            $('.background img').attr('src', "지역/수원_444.png");
+                            $('#icon .cloud1, .cloud2, .cloud3').hide();
+                            $('#icon .rain').hide();
+                            $('#icon .snow1').css('opacity', "70%");
+                            $('#icon .snow2').css('opacity', "55%");
+                            $('#icon .snow3').css('opacity', "35%");
+                            $('#icon .snow4').css('opacity', "20%");
+                        }else{
+                            $('.background img').attr('src', "지역/수원_444.png");
+                            $('#icon .rain').hide();
+                            $('#icon .snow1, .snow2, .snow3, .snow4').hide();
+                            $('#icon .cloud1').css('opacity', "70%");
+                            $('#icon .cloud2').css('opacity', "55%");
+                            $('#icon .cloud3').css('opacity', "35%");
+                        }  
+                    }
+                    else{
+                        if(iconCode == '01d' || iconCode == '01n'){
+                            // 맑은날 밤
+                            $('.background img').attr('src', "지역/수원_222.png");
+                            $('#icon .snow1, .snow2, .snow3, .snow4').hide();
+                            $('#icon .cloud1, .cloud2, .cloud3').hide();
+                            $('#icon .rain').hide();
+
+                        }else if(iconCode == '09d' || iconCode == '09n' || iconCode == '10d' || iconCode == '10n'){
+                            $('.background img').attr('src', "지역/수원_444.png");
+                            $('#icon .cloud1, .cloud2, .cloud3').hide();
+                            $('#icon .snow1, .snow2, .snow3, .snow4').hide();
+                            $('#icon img').css('opacity', "70%");
+                        
+                        }else if(iconCode == '13d' || iconCode == '13n'){
+                            $('.background img').attr('src', "지역/수원_444.png");
+                            $('#icon .cloud1, .cloud2, .cloud3').hide();
+                            $('#icon .rain').hide();
+                            $('#icon .snow1').css('opacity', "70%");
+                            $('#icon .snow2').css('opacity', "55%");
+                            $('#icon .snow3').css('opacity', "35%");
+                            $('#icon .snow4').css('opacity', "20%");
+                        }else{
+                            $('.background img').attr('src', "지역/수원_444.png");
+                            $('#icon .rain').hide();
+                            $('#icon .snow1, .snow2, .snow3, .snow4').hide();
+                            $('#icon .cloud1').css('opacity', "70%");
+                            $('#icon .cloud2').css('opacity', "55%");
+                            $('#icon .cloud3').css('opacity', "35%");
+                            $('#item5 img').attr('src', "장소/맥주.png");
+
+                            
+                        }
+                    };
+
+
+                });
+
+                $.getJSON('https://api.openweathermap.org/data/2.5/forecast?id=1835553&appid=61b44f07a584ae777acb0c1a2c45cb25&units=metric', function(data){
+                    console.log(data); 
+
+                    for(let i=0; i<5; i++){
+                        let dt = data.list[i].dt;
+                        let temp = data.list[i].main.temp;
+                        temp = Math.round(temp);
+
+                        let weather = data.list[i].weather[0].main;
+                        console.log(weather);
+
+                        // let date = moment(dt * 1000).format('YYYY-MM-DD(ddd) hh:mm A');
+                        // console.log(date);
+
+                        let date = moment(dt * 1000).format('h A');
+                        console.log(date);
+
+                        let dom = $('<div class="forecast"></div>');
+                        dom.append('<div class="date">' + date + '</div>');
+                        // dom.append('<div class="icon">' + data.list[i].weather[0].main + '</div>');
+                        let imgDom = $('<img class="icon">')
+                        dom.append(imgDom);
+                        dom.append('<div class="temp">' + temp + "℃" + '</div>');
+
+                        let iconCode = data.list[i].weather[0].icon;
+                        console.log(iconCode);
+                        // dom.find('.icon').attr('src', 'http://openweathermap.org/img/wn/' + iconCode + '@2x.png');
+
+                        // 아이콘 변경 
+                        if(iconCode == '01d' || iconCode == '01n'){
+                            imgDom.attr('src', "날씨/sunny.png");
+                        }else if(iconCode == '02d' || iconCode == '02n' || iconCode == '03d' || iconCode == '03n' || iconCode == '04d' || iconCode == '04n'){
+                            imgDom.attr('src', "날씨/cloud.png");
+                        }else if(iconCode == '09d' || iconCode == '09n' || iconCode == '10d' || iconCode == '10n'){
+                            imgDom.attr('src', "날씨/rain.png");
+                        }else if(iconCode == '11d' || iconCode == '11n'){
+                            imgDom.attr('src', "날씨/thunderstorm.png");
+                        }else if(iconCode == '13d' || iconCode == '13n'){
+                            imgDom.attr('src', "날씨/snow.png");
+                        }else{
+                            imgDom.attr('src', "날씨/mist.png");
+                        };
+
+                        // dom.append('<div>' + weather + '</div>');
+
+                        $('#forecast').append(dom);
+
+                    }
+                });
+
+
+                $('.to_go > p').click(function(){
+                    let bottom = $('.to_go').css('bottom');
+                    // console.log(bottom)
+
+                    // 원래 -990인 경우 -> -350으로 변경
+                    if(bottom == '-990px'){
+                        $('.to_go').animate({bottom: "-350px"}, 200);
+                        $('.to_go').css("box-shadow", "none");
+                    }
+                    // 지금 -350인 경우 -> -990으로 변경
+                    else{
+                        $('.to_go').animate({bottom: "-990px"}, 200);
+                        $('.to_go').css("box-shadow", "0px -2px 4px 0px #f0f0f0");
+                    }
+                    
+                });
+                
+
+            });
+        </script>
+    </body>
+</html>
